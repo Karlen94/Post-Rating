@@ -1,5 +1,28 @@
-.taskContainer{
-    border: 1px solid #f70000;
-    height: auto;
-    width: auto;
+.taskContainer {
+  border: 1px solid #f70000;
+  margin: 5px;
+  padding: 5px;
+  height: auto;
+  width: auto;
+  justify-content: center;
+  align-items: center;
+}
+.ratingDiv {
+  font-family: "sans-serif";
+  text-align: center;
+}
+.ratingText {
+  background-color: rgba(250, 242, 231, 0.747);
+  box-shadow: 5px 10px 20px;
+  padding: 5px;
+  border-radius: 5px;
+}
+.commentsDiv {
+  justify-content: center;
+  margin: 5px;
+  padding: 5px;
+  border-radius: 10px;
+  width: 80%;
+  background-color: rgb(253, 221, 221);
+  box-shadow: 5px 10px 20px;
 }

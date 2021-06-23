@@ -1,5 +1,12 @@
 .main {
+  position: relative;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(315deg, #4dff03, #00d0ff);
+  background: white;
+}
+.listContainer {
+  justify-content: center;
+  align-items: center;
+}
+.ratingListContainer {
 }

@@ -1,0 +1,7 @@
+.ratingLists {
+  text-align: center;
+  border: 2px solid #d35;
+  margin: 5px;
+  width: 100%;
+  min-height: 100px
+}

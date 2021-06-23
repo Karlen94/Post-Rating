@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { Avatar } from "@material-ui/core";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faStar } from "@fortawesome/free-solid-svg-icons";
+import RatingStar from "../RatingStar/RatingStar";
 import style from "./postElements.module.css";
 
 class PostElements extends Component {
@@ -11,24 +13,33 @@ class PostElements extends Component {
   }
 
   render() {
-    let { postName, postText, comments } = this.props.obj.post1;
-    console.log(this.props);
+    let { postName, postText, comments } = this.props.obj;
     return (
       <Container>
         <Row>
-          <div className={style.taskContainer}>
-            <h1>{postName}</h1>
-            <p>{postText}</p>
-            {comments.map((el) => {
-              return (
-                <span>
-                  {el.text}
-                  <FontAwesomeIcon icon={faStar} size="lg" />
-                  <br />
-                </span>
-              );
-            })}
-          </div>
+          <Col xs={12}>
+            <div className={style.taskContainer}>
+              <div>
+                <h1>{postName}</h1>
+              </div>
+              <div className={style.ratingText}>
+                <p>
+                  <Avatar />
+                  {postText}
+                </p>
+              </div>
+              {comments.map((el) => {
+                return (
+                  <div className={style.commentsDiv}>
+                    <Avatar /> {el.text}
+                    <div className={style.ratingDiv}>
+                      <RatingStar rating={el.rating} />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </Col>
         </Row>
       </Container>
     );
