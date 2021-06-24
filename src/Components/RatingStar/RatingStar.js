@@ -1,6 +1,7 @@
 import React, { PureComponent } from "react";
 import Rating from "@material-ui/lab/Rating";
 import StarBorderIcon from '@material-ui/icons/StarBorder';
+import styles from "./ratingStar.module.css";
 
 
 
@@ -15,7 +16,7 @@ class RatingStar extends PureComponent {
   render() {
 
     return (
-      <div>
+      <div className={styles.ratingDiv}>
         <Rating
           name="customized-empty"
           defaultValue={this.props.rating}

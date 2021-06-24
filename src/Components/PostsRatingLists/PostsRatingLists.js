@@ -17,20 +17,24 @@ class PostsRatingLists extends Component {
       array?.reduce(function (sum, current) {
         return sum + current;
       }) / array.length;
-      
+
     return (
       <div className={styles.ratingLists}>
         <Button
+          className={styles.plus}
           onClick={() => this.props.handleData()}
           variant="outline-success"
         >
           +
         </Button>
-        <Button variant="outline-warning">-</Button>
+        <Button
+        className={styles.minus}
+        variant="outline-warning"
+        >-</Button>
         <div>
           {data?.map((el) => {
             return (
-              <div>
+              <div className={styles.postRating}>
                 <div>{el.postName}</div>
                 <div>
                   {el.postText}

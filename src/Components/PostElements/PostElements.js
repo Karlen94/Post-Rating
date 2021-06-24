@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { Avatar } from "@material-ui/core";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faStar } from "@fortawesome/free-solid-svg-icons";
 import RatingStar from "../RatingStar/RatingStar";
 import style from "./postElements.module.css";
 
@@ -30,11 +28,9 @@ class PostElements extends Component {
               </div>
               {comments.map((el) => {
                 return (
-                  <div className={style.commentsDiv}>
+                  <div key={el.id} className={style.commentsDiv}>
                     <Avatar /> {el.text}
-                    <div className={style.ratingDiv}>
-                      <RatingStar rating={el.rating} />
-                    </div>
+                    <RatingStar rating={el.rating} />
                   </div>
                 );
               })}

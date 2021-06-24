@@ -1,0 +1,15 @@
+.container {
+  background-color: cornsilk;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  text-align: center;
+  display: block;
+  border-radius: 5px;
+}
+.container:hover {
+  box-shadow: 5px 10px 20px;
+  opacity: 2;
+}

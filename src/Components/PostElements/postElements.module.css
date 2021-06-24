@@ -1,5 +1,4 @@
 .taskContainer {
-  border: 1px solid #f70000;
   margin: 5px;
   padding: 5px;
   height: auto;
@@ -7,10 +6,7 @@
   justify-content: center;
   align-items: center;
 }
-.ratingDiv {
-  font-family: "sans-serif";
-  text-align: center;
-}
+
 .ratingText {
   background-color: rgba(250, 242, 231, 0.747);
   box-shadow: 5px 10px 20px;

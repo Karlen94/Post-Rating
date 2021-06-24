@@ -1,7 +1,20 @@
 .ratingLists {
   text-align: center;
-  border: 2px solid #d35;
+  background-color: #e4eeef;
   margin: 5px;
   width: 100%;
-  min-height: 100px
+  min-height: 100px;
+}
+.plus {
+  margin: 5px;
+}
+.minus {
+  margin: 5px;
+}
+.postRating {
+  background-color: rgba(250, 242, 231, 0.747);
+  box-shadow: 5px 10px 20px;
+  margin: 5px;
+  padding: 5px;
+  border-radius: 5px;
 }

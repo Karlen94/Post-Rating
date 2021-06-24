@@ -1,5 +1,5 @@
 import "./App.css";
-import PostList from "./Components/List/List";
+import PostList from "./Components/PostList/PostList";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Row } from "react-bootstrap";
 
