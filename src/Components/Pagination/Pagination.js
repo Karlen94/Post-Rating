@@ -1,232 +1,43 @@
-import React, { Component } from "react";
-import styles from "./pagination.module.css";
+import React, { useState } from "react";
+import "./pagination.css";
+import ReactPaginate from "react-paginate";
+import PostElements from "../PostElements/PostElements";
+// import { postObj } from "../../postData/postData";
 
-// const propTypes = {
-//   items: React.PropTypes.array.isRequired,
-//   onChangePage: React.PropTypes.func.isRequired,
-//   initialPage: React.PropTypes.number,
-// };
+function Pagination({ data }) {
+  const users = data;
+  const [pageNumber, setPageNumber] = useState(0);
+  const usersPerPager = 1;
+  const pagesVisited = pageNumber * usersPerPager;
 
-// const defaultProps = {
-//   initialPage: 1,
-// };
+  const displayUsers = users
+    .slice(pagesVisited, pagesVisited + usersPerPager)
+    .map((el) => {
+      return <PostElements key={el.id} obj={el} />;
+    });
 
-class Pagination extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { pager: {} };
-  }
+  const pageCount = Math.ceil(users.length / usersPerPager);
 
-  componentWillMount() {
-    // set page if items array isn't empty
-    if (this.props.items && this.props.items.length) {
-      this.setPage(this.props.initialPage);
-    }
-  }
+  const changePage = ({ selected }) => {
+    setPageNumber(selected);
+  };
 
-  componentDidUpdate(prevProps, prevState) {
-    // reset page if items array has changed
-    if (this.props.items !== prevProps.items) {
-      this.setPage(this.props.initialPage);
-    }
-  }
-
-  setPage(page) {
-    const items = this.props.items;
-    let pager = this.state.pager;
-
-    if (page < 1 || page > pager.totalPages) {
-      return;
-    }
-
-    // get new pager object for specified page
-    pager = this.getPager(items.length, page);
-
-    // get new page of items from items array
-    let pageOfItems = items.slice(pager.startIndex, pager.endIndex + 1);
-
-    // update state
-    this.setState({ pager: pager });
-
-    // call change page function in parent component
-    this.props.onChangePage(pageOfItems);
-  }
-
-  getPager(totalItems, currentPage, pageSize) {
-    // default to first page
-    currentPage = currentPage || 1;
-
-    // default page size is 10
-    pageSize = pageSize || 1;
-
-    // calculate total pages
-    let totalPages = Math.ceil(totalItems / pageSize);
-
-    let startPage, endPage;
-    if (totalPages <= 10) {
-      // less than 10 total pages so show all
-      startPage = 1;
-      endPage = totalPages;
-    } else {
-      // more than 10 total pages so calculate start and end pages
-      if (currentPage <= 6) {
-        startPage = 1;
-        endPage = 10;
-      } else if (currentPage + 4 >= totalPages) {
-        startPage = totalPages - 9;
-        endPage = totalPages;
-      } else {
-        startPage = currentPage - 5;
-        endPage = currentPage + 4;
-      }
-    }
-
-    // calculate start and end item indexes
-    let startIndex = (currentPage - 1) * pageSize;
-    let endIndex = Math.min(startIndex + pageSize - 1, totalItems - 1);
-
-    // create an array of pages to ng-repeat in the pager control
-    let pages = [...Array(endPage + 1 - startPage).keys()].map(
-      (i) => startPage + i
-    );
-
-    // return object with all pager properties required by the view
-    return {
-      totalItems: totalItems,
-      currentPage: currentPage,
-      pageSize: pageSize,
-      totalPages: totalPages,
-      startPage: startPage,
-      endPage: endPage,
-      startIndex: startIndex,
-      endIndex: endIndex,
-      pages: pages,
-    };
-  }
-
-  render() {
-    const pager = this.state.pager;
-
-    if (!pager.pages || pager.pages.length <= 1) {
-      // don't display pager if there is only 1 page
-      return null;
-    }
-
-    return (
-      <ul className="pagination">
-        <li className={pager.currentPage === 1 ? "disabled" : ""}>
-          <a className={styles.link} onClick={() => this.setPage(1)}>
-            First
-          </a>
-        </li>
-        <li className={pager.currentPage === 1 ? "disabled" : ""}>
-          <a
-            className={styles.link}
-            onClick={() => this.setPage(pager.currentPage - 1)}
-          >
-            Previous
-          </a>
-        </li>
-        {pager.pages.map((page, index) => (
-          <li
-            key={index}
-            className={pager.currentPage === page ? "active" : ""}
-          >
-            <a className={styles.link} onClick={() => this.setPage(page)}>
-              {page}
-            </a>
-          </li>
-        ))}
-        <li
-          className={pager.currentPage === pager.totalPages ? "disabled" : ""}
-        >
-          <a
-            className={styles.link}
-            onClick={() => this.setPage(pager.currentPage + 1)}
-          >
-            Next
-          </a>
-        </li>
-        <li
-          className={pager.currentPage === pager.totalPages ? "disabled" : ""}
-        >
-          <a
-            className={styles.link}
-            onClick={() => this.setPage(pager.totalPages)}
-          >
-            Last
-          </a>
-        </li>
-      </ul>
-    );
-  }
+  return (
+    <>
+      {displayUsers}
+      <ReactPaginate
+        previousLabel={"Previous"}
+        nextLabel={"Next"}
+        pageCount={pageCount}
+        onPageChange={changePage}
+        containerClassName={"paginationBttns"}
+        previousLinkClassName={"previousBttn"}
+        nextLinkClassName={"nextBttn"}
+        disabledClassName={"paginationDisabled"}
+        activeClassName={"paginationActive"}
+      />
+    </>
+  );
 }
-
-// Pagination.propTypes = propTypes;
-// Pagination.defaultProps = defaultProps;
 
 export default Pagination;
-
-/* App Component 
--------------------------------------------------
-
-class App extends React.Component {
-  constructor() {
-    super();
-
-    // an example array of items to be paged
-    var exampleItems = [...Array(150).keys()].map((i) => ({
-      id: i + 1,
-      name: "Item " + (i + 1),
-    }));
-
-    this.state = {
-      exampleItems: exampleItems,
-      pageOfItems: [],
-    };
-
-    // bind function in constructor instead of render (https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-no-bind.md)
-    this.onChangePage = this.onChangePage.bind(this);
-  }
-
-  onChangePage(pageOfItems) {
-    // update state with new page of items
-    this.setState({ pageOfItems: pageOfItems });
-  }
-
-  render() {
-    return (
-      <div>
-        <div className="container">
-          <div className="text-center">
-            <h1>React - Pagination Example with logic like Google</h1>
-            {this.state.pageOfItems.map((item) => (
-              <div key={item.id}>{item.name}</div>
-            ))}
-            <Pagination
-              items={this.state.exampleItems}
-              onChangePage={this.onChangePage}
-            />
-          </div>
-        </div>
-        <hr />
-        <div className="credits text-center">
-          <p>
-            <a
-              href="http://jasonwatmore.com/post/2017/03/14/react-pagination-example-with-logic-like-google"
-              target="_top"
-            >
-              React - Pagination Example with Logic like Google
-            </a>
-          </p>
-          <p>
-            <a href="http://jasonwatmore.com" target="_top">
-              JasonWatmore.com
-            </a>
-          </p>
-        </div>
-      </div>
-    );
-  }
-}
-*/
