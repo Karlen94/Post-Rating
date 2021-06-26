@@ -1,3 +1,4 @@
+import { Star } from "@material-ui/icons";
 import React, { Component } from "react";
 import { Button } from "react-bootstrap";
 import styles from "./postRatingLists.module.css";
@@ -9,7 +10,7 @@ class PostsRatingLists extends Component {
   }
 
   render() {
-    const { data } = this.props;
+    const { data, id, handleData, deleteData } = this.props;
     const array = data && data[0]?.comments.map((el) => el.rating);
 
     const ratings =
@@ -22,23 +23,27 @@ class PostsRatingLists extends Component {
       <div className={styles.ratingLists}>
         <Button
           className={styles.plus}
-          onClick={() => this.props.handleData()}
+          onClick={() => handleData(id)}
           variant="outline-success"
         >
           +
         </Button>
         <Button
-        className={styles.minus}
-        variant="outline-warning"
-        >-</Button>
+          className={styles.minus}
+          onClick={() => deleteData(id)}
+          variant="outline-warning"
+        >
+          -
+        </Button>
         <div>
           {data?.map((el) => {
             return (
-              <div className={styles.postRating}>
+              <div key={el.id} className={styles.postRating}>
                 <div>{el.postName}</div>
                 <div>
                   {el.postText}
-                  {ratings}
+                  <Star style={{ color: "ffb400" }} />{" "}
+                  {parseInt(ratings * 100) / 100}
                 </div>
               </div>
             );

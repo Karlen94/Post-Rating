@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import { Avatar } from "@material-ui/core";
 import RatingStar from "../RatingStar/RatingStar";
 import style from "./postElements.module.css";
@@ -11,7 +11,8 @@ class PostElements extends Component {
   }
 
   render() {
-    let { postName, postText, comments } = this.props.obj;
+    const { toggleModal } = this.props;
+    let { postName, postText, comments, id } = this.props.obj;
     return (
       <Container>
         <Row>
@@ -21,10 +22,8 @@ class PostElements extends Component {
                 <h1>{postName}</h1>
               </div>
               <div className={style.ratingText}>
-                <p>
-                  <Avatar />
-                  {postText}
-                </p>
+                <Avatar />
+                <p>{postText}</p>
               </div>
               {comments.map((el) => {
                 return (
@@ -34,6 +33,15 @@ class PostElements extends Component {
                   </div>
                 );
               })}
+              <Button
+                xs={3}
+                className={style.addNewCommentButton}
+                variant="success"
+                onClick={() => toggleModal(id)}
+                disabled={this.props.obj.length === 0}
+              >
+                Leave a comment
+              </Button>
             </div>
           </Col>
         </Row>

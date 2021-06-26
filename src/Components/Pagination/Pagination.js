@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import "./pagination.css";
 import ReactPaginate from "react-paginate";
 import PostElements from "../PostElements/PostElements";
-// import { postObj } from "../../postData/postData";
 
-function Pagination({ data }) {
+function Pagination({ data, toggleNewCommentModal }) {
   const users = data;
   const [pageNumber, setPageNumber] = useState(0);
   const usersPerPager = 1;
@@ -13,7 +12,13 @@ function Pagination({ data }) {
   const displayUsers = users
     .slice(pagesVisited, pagesVisited + usersPerPager)
     .map((el) => {
-      return <PostElements key={el.id} obj={el} />;
+      return (
+        <PostElements
+          key={el.id}
+          obj={el}
+          toggleModal={toggleNewCommentModal}
+        />
+      );
     });
 
   const pageCount = Math.ceil(users.length / usersPerPager);

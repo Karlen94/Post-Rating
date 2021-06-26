@@ -22,3 +22,7 @@
   background-color: rgb(140 193 161 / 71%);
   box-shadow: 5px 10px 20px;
 }
+.addNewCommentButton {
+  margin: 5px;
+  box-shadow: 5px 10px 10px black;
+}
