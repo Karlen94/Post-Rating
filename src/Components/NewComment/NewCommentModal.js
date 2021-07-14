@@ -1,5 +1,7 @@
 import React, { useState, useEffect, createRef } from "react";
 import idGenerator from "../../helpersFunction/idGenerator";
+import { connect } from "react-redux";
+import { addComment } from "../../store/action";
 import { Modal, FormControl, Button } from "react-bootstrap";
 import styles from "./newCommetModal.module.css";
 
@@ -94,4 +96,8 @@ const NewComment = (props) => {
   );
 };
 
-export default NewComment;
+const mapDispatchToProps = {
+  addComment,
+};
+
+export default connect(null, mapDispatchToProps)(NewComment);

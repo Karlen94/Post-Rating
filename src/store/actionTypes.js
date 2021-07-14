@@ -1,0 +1,3 @@
+export const ADD_DATA = "ADD_DATA";
+export const TOGGLE_NEW_COMMENT_MODAL = "TOGGLE_NEW_COMMENT_MODAL";
+export const ADD_COMMENT = "ADD_COMMENT";

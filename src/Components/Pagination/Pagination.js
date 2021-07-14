@@ -16,7 +16,6 @@ function Pagination({ data, toggleNewCommentModal }) {
         <PostElements
           key={el.id}
           obj={el}
-          toggleModal={toggleNewCommentModal}
         />
       );
     });

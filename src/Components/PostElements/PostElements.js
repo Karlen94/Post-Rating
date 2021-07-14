@@ -1,11 +1,13 @@
 import React from "react";
+import { connect } from "react-redux";
+import { toggleNewCommentModal } from "../../store/action";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { Avatar } from "@material-ui/core";
 import RatingStar from "../RatingStar/RatingStar";
 import style from "./postElements.module.css";
 
 const PostElements = (props) => {
-  const { toggleModal } = props;
+  const { toggleNewCommentModal } = props;
   let { postName, postText, comments, id } = props.obj;
 
   return (
@@ -32,8 +34,7 @@ const PostElements = (props) => {
               xs={3}
               className={style.addNewCommentButton}
               variant="success"
-              onClick={() => toggleModal(id)}
-              disabled={props.obj.length === 0}
+              onClick={() => toggleNewCommentModal(id)}
             >
               Leave a comment
             </Button>
@@ -44,4 +45,14 @@ const PostElements = (props) => {
   );
 };
 
-export default PostElements;
+// const mapStateToProps = (state) => {
+//   return {
+//     filtredData: state.filtredData,
+//   };
+// };
+
+const mapDispatchToProps = {
+  toggleNewCommentModal,
+};
+
+export default connect(null, mapDispatchToProps)(PostElements);

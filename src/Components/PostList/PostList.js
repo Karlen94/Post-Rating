@@ -2,44 +2,41 @@ import React, { useState } from "react";
 import PostsRatingLists from "../PostsRatingLists/PostsRatingLists";
 import Pagination from "../Pagination/Pagination";
 import NewComment from "../NewComment/NewCommentModal";
-import { postObj } from "../../postData/postData";
 import { Container, Row, Col } from "react-bootstrap";
+import { connect } from "react-redux";
+import { toggleNewCommentModal } from "../../store/action";
 import style from "./postList.module.css";
 
-const PostList = (props) => {
+const PostList = ({ filtredData, toggleNewCommentModal, openCommentModal }) => {
   const [state, setState] = useState({
-    filtredData: postObj,
     leftData: [],
     rightData: [],
-    openCommentModal: false,
-    elementId: "",
   });
 
-  const addComment = (element) => {
-    const { filtredData, elementId } = state;
-    filtredData.map((el) => {
-      if (el.id === elementId) {
-        return el.comments.push(element);
-      }
-      return el;
-    });
-    setState({
-      ...state,
-      filtredData: filtredData,
-      openCommentModal: false,
-    });
-  };
+  // const addComment = (element) => {
+  //   filtredData.map((el) => {
+  //     if (el.id === elementId) {
+  //       return el.comments.push(element);
+  //     }
+  //     return el;
+  //   });
+  //   setState({
+  //     ...state,
+  //     filtredData: filtredData,
+  //     openCommentModal: false,
+  //   });
+  // };
 
-  const toggleNewCommentModal = (id) => {
-    setState({
-      ...state,
-      elementId: id,
-      openCommentModal: !state.openCommentModal,
-    });
-  };
+  // const toggleNewCommentModal = (id) => {
+  //   setState({
+  //     ...state,
+  //     elementId: id,
+  //     openCommentModal: !state.openCommentModal,
+  //   });
+  // };
 
   const removeData = (id) => {
-    const { rightData, filtredData, leftData } = state;
+    const { rightData, leftData } = state;
     if (id === "right" && rightData.length !== 0) {
       filtredData.push(rightData.pop());
       setState({
@@ -49,6 +46,7 @@ const PostList = (props) => {
     } else {
       if (id === "left" && leftData.length !== 0) {
         filtredData.push(leftData.pop());
+
         setState({
           ...state,
           filtredData: [...filtredData],
@@ -58,7 +56,7 @@ const PostList = (props) => {
   };
 
   const handleData = (id) => {
-    const { filtredData, rightData, leftData } = state;
+    const { rightData, leftData } = state;
     const lastElement = filtredData[filtredData.length - 1];
     if (filtredData === 0) {
       return;
@@ -83,8 +81,6 @@ const PostList = (props) => {
       }
     }
   };
-
-  const { filtredData, openCommentModal } = state;
   return (
     <div>
       <Container>
@@ -117,11 +113,20 @@ const PostList = (props) => {
           </Col>
         </Row>
       </Container>
-      {openCommentModal && (
-        <NewComment addComment={addComment} onClose={toggleNewCommentModal} />
-      )}
+      {openCommentModal && <NewComment onClose={toggleNewCommentModal} />}
     </div>
   );
 };
 
-export default PostList;
+const mapStateToProps = (state) => {
+  return {
+    filtredData: state.filtredData,
+    openCommentModal: state.openCommentModal,
+  };
+};
+
+const mapDispatchToProps = {
+  toggleNewCommentModal,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostList);
