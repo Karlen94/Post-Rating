@@ -6,6 +6,7 @@ const deafultState = {
   elementId: "",
   leftData: [],
   rightData: [],
+  boolean: false,
 };
 
 export default function reducer(state = deafultState, action) {
@@ -24,16 +25,18 @@ export default function reducer(state = deafultState, action) {
       };
     }
     case actionTypes.ADD_COMMENT: {
-      const filtredData = [...state.filtredData];
-      filtredData.map((el) => {
-        if (el.id === state.elementId) {
-          return el.comments.push(action.payload);
+      const arr = [];
+      for (let i = 0; i < state.filtredData.length; i++) {
+        arr.push(state.filtredData[i]);
+        if (state.filtredData[i].id === state.elementId) {
+          state.filtredData[i].comments.push(action.payload);
         }
-        return el;
-      });
+      }
+
       return {
         ...state,
-        filtredData: filtredData,
+        filtredData: arr,
+        boolean: !state.boolean,
         openCommentModal: false,
       };
     }

@@ -36,8 +36,8 @@ const NewComment = (props) => {
 
     const newComment = {
       id: idGenerator(),
-      rating: +newRating,
       text: lastComment,
+      rating: Number(newRating),
     };
     props.addComment(newComment);
   };

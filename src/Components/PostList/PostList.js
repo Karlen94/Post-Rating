@@ -1,17 +1,23 @@
-import React, { useState } from "react";
+import React, {  useState } from "react";
 import PostsRatingLists from "../PostsRatingLists/PostsRatingLists";
 import Pagination from "../Pagination/Pagination";
 import NewComment from "../NewComment/NewCommentModal";
 import { Container, Row, Col } from "react-bootstrap";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { toggleNewCommentModal } from "../../store/action";
 import style from "./postList.module.css";
 
-const PostList = ({ filtredData, toggleNewCommentModal, openCommentModal }) => {
+const PostList = ({  toggleNewCommentModal, openCommentModal }) => {
   const [state, setState] = useState({
     leftData: [],
     rightData: [],
   });
+
+  const filtredData =useSelector((state)=>state.filtredData)
+
+ 
+
+ 
 
   // const addComment = (element) => {
   //   filtredData.map((el) => {
@@ -88,7 +94,6 @@ const PostList = ({ filtredData, toggleNewCommentModal, openCommentModal }) => {
           <Col xs={12}>
             <div className={style.container}>
               <Pagination
-                data={filtredData}
                 toggleNewCommentModal={toggleNewCommentModal}
               />
             </div>
@@ -120,7 +125,6 @@ const PostList = ({ filtredData, toggleNewCommentModal, openCommentModal }) => {
 
 const mapStateToProps = (state) => {
   return {
-    filtredData: state.filtredData,
     openCommentModal: state.openCommentModal,
   };
 };
